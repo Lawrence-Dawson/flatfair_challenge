@@ -81,6 +81,22 @@ class FeeCalculatorTest extends TestCase {
 
         $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
     }
+
+    /**
+    * @test
+    */
+    public function it_will_throw_exception_when_monthly_rent_amount_too_small()
+    {
+        $calculator = new FeeCalculator();
+        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        
+        $period = 'monthly';
+        $rentAmount = 10999;
+
+        $this->expectExceptionMessage('Invalid rent amount, it must be above 11000');
+
+        $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+    }
     
     /**
     * @test
@@ -95,7 +111,23 @@ class FeeCalculatorTest extends TestCase {
 
         $this->expectExceptionMessage('Invalid rent amount, it must be below 200000');
 
-        $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+        $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+    }
+
+    /**
+    * @test
+    */
+    public function it_will_throw_exception_when_monthly_rent_amount_too_large()
+    {
+        $calculator = new FeeCalculator();
+        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        
+        $period = 'monthly';
+        $rentAmount = 866001;
+
+        $this->expectExceptionMessage('Invalid rent amount, it must be below 866000');
+
+        $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
     }
 }
 

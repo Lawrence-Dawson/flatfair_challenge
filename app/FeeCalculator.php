@@ -34,13 +34,13 @@ class FeeCalculator
     public function validateRentAmount(int $rentAmount, string $period)
     {
         $rules = self::PERIOD_RULES[$period];
+        
         if ($rentAmount < $rules['min']) {
-           throw new \Exception("Invalid rent amount, it must be above " . $rules['min']);
-           
+            throw new \Exception("Invalid rent amount, it must be above " . $rules['min']);
         }
 
         if ($rentAmount > $rules['max']) {
-           throw new \Exception("Invalid rent amount, it must be below " . $rules['max']);
+            throw new \Exception("Invalid rent amount, it must be below " . $rules['max']);
         }
     }
 
