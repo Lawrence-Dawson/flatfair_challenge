@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use App\OrganisationUnitConfig;
 
 class OrganisationUnitConfigTest extends TestCase {
     
