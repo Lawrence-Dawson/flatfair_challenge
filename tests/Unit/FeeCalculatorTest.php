@@ -19,7 +19,7 @@ class FeeCalculatorTest extends TestCase {
         $organisationUnit = Mockery::mock(OrganisationUnit::class);
         
         $period = 'weekly';
-        $rentAmount = 3000;
+        $rentAmount = 12000;
 
         $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
   
@@ -38,7 +38,7 @@ class FeeCalculatorTest extends TestCase {
         $organisationUnit = Mockery::mock(OrganisationUnit::class);
         
         $period = 'monthly';
-        $rentAmount = 15000;
+        $rentAmount = 52000;
 
         $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
         
@@ -55,7 +55,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_will_use_minimun_fee_when_fee_calculated_to_below_minimun()
     {
         $minimumFee = 14400;
-        $calculator = new FeeCalculator($minimumFee);
+        $calculator = new FeeCalculator();
         $organisationUnit = Mockery::mock(OrganisationUnit::class);
         
         $period = 'weekly';

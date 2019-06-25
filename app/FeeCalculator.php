@@ -6,23 +6,18 @@ use App\OrganisationUnit;
 
 class FeeCalculator 
 {
-    private $minFee;
-
-    public function __construct(int $minFee)
-    {
-        $this->minFee = $minFee;
-    }
+    const MIN_FEE = 14400;
 
     public function calculateMembershipFee(int $rentAmount, string $period, OrganisationUnit $unit)
     {
 	    $weeksRent = $this->calculateWeeksRent($rentAmount, $period);
         $fee = $this->addTax($weeksRent);
 
-        if ($fee > $this->minFee) {
+        if ($fee > self::MIN_FEE) {
             return $fee;
         }
     
-	    return $this->minFee;
+	    return self::MIN_FEE;
     }
 
     private function calculateWeeksRent(int $rentAmount, string $period): int
