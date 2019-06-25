@@ -8,6 +8,7 @@ class OrganisationUnit {
 
     private $config;
     private $name;
+    private $parent;
 
     public function __construct(string $name, OrganisationUnitConfig $config = null)
     {
@@ -23,5 +24,15 @@ class OrganisationUnit {
     public function getName(): String
     {
         return $this->name;
+    }
+
+    public function setParent(OrganisationUnit $parent): ?OrganisationUnit
+    {
+        return $this->parent = $parent;
+    }
+
+    public function getParent(): ?OrganisationUnit
+    {
+        return $this->parent ?? null;
     }
 }

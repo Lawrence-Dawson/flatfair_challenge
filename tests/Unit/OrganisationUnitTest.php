@@ -34,5 +34,22 @@ class OrganisationUnitTest extends TestCase {
         
         $this->assertEquals($config, $unit->getConfig());
     }
+
+    /**
+    * @test
+    */
+    public function it_can_set_organisation_unit_parent()
+    {
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        $name = 'branch';
+
+        $parent = Mockery::mock(OrganisationUnit::class);
+
+        $unit = new OrganisationUnit($name, $config);
+
+        $unit->setParent($parent);
+        
+        $this->assertEquals($parent, $unit->getParent());
+    }
 }
 
