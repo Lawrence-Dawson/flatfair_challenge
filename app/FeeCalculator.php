@@ -7,9 +7,20 @@ use App\OrganisationUnit;
 class FeeCalculator 
 {
     const MIN_FEE = 14400;
+    const PERIOD_RULES = [
+        'weekly' => [
+            'min' => 2500,
+            'max' => 200000,
+        ],
+        'monthly' => [
+            'min' => 11000,
+            'max' => 866000,
+        ],
+    ];
 
     public function calculateMembershipFee(int $rentAmount, string $period, OrganisationUnit $unit)
     {
+        $this->validateRentAmount($rentAmount, $period);
 	    $weeksRent = $this->calculateWeeksRent($rentAmount, $period);
         $fee = $this->addTax($weeksRent);
 
@@ -18,6 +29,19 @@ class FeeCalculator
         }
     
 	    return self::MIN_FEE;
+    }
+
+    public function validateRentAmount(int $rentAmount, string $period)
+    {
+        $rules = self::PERIOD_RULES[$period];
+        if ($rentAmount < $rules['min']) {
+           throw new \Exception("Invalid rent amount, it must be above " . $rules['min']);
+           
+        }
+        
+        if ($rentAmount > $rules['max']) {
+           throw new \Exception("Invalid rent amount, it must be below " . $rules['min']);
+        }
     }
 
     private function calculateWeeksRent(int $rentAmount, string $period): int

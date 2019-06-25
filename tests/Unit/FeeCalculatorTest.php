@@ -65,5 +65,21 @@ class FeeCalculatorTest extends TestCase {
         
         $this->assertEquals($minimumFee, $fee);
     }
+
+    /**
+    * @test
+    */
+    public function it_will_throw_exception_when_weekly_rent_amount_too_small()
+    {
+        $calculator = new FeeCalculator();
+        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        
+        $period = 'weekly';
+        $rentAmount = 2499;
+
+        $this->expectExceptionMessage('Invalid rent amount, it must be above 2500');
+
+        $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+    }
 }
 
