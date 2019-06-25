@@ -18,7 +18,11 @@ class OrganisationUnit {
 
     public function getConfig(): ?OrganisationUnitConfig
     {
-        return $this->config;
+        if ($config = $this->config) {
+            return $config;
+	    }
+
+	    return $this->getParent()->getConfig();
     }
 
     public function getName(): String
@@ -28,7 +32,9 @@ class OrganisationUnit {
 
     public function setParent(OrganisationUnit $parent): ?OrganisationUnit
     {
-        return $this->parent = $parent;
+        $this->parent = $parent;
+        
+        return $parent;
     }
 
     public function getParent(): ?OrganisationUnit

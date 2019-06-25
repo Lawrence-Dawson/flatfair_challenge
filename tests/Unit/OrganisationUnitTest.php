@@ -38,7 +38,7 @@ class OrganisationUnitTest extends TestCase {
     /**
     * @test
     */
-    public function it_can_set_organisation_unit_parent()
+    public function it_can_get_organisation_unit_parent()
     {
         $config = Mockery::mock(OrganisationUnitConfig::class);
         $name = 'branch';
@@ -50,6 +50,27 @@ class OrganisationUnitTest extends TestCase {
         $unit->setParent($parent);
         
         $this->assertEquals($parent, $unit->getParent());
+    }
+
+    /**
+    * @test
+    */
+    public function it_gets_parents_config_when_none_present()
+    {
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        $name = 'branch';
+
+        $parent = Mockery::mock(OrganisationUnit::class);
+
+        $parent->expects()
+            ->getConfig()
+            ->andReturns($config);
+
+        $unit = new OrganisationUnit($name);
+
+        $unit->setParent($parent);
+        
+        $this->assertEquals($config, $unit->getConfig());
     }
 }
 
