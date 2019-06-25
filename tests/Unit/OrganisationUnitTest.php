@@ -28,8 +28,9 @@ class OrganisationUnitTest extends TestCase {
     public function it_can_get_organisation_unit_config()
     {
         $config = Mockery::mock(OrganisationUnitConfig::class);
-
-        $unit = new OrganisationUnit($config);
+        $name = 'branch';
+        
+        $unit = new OrganisationUnit($name, $config);
         
         $this->assertEquals($config, $unit->getConfig());
     }
