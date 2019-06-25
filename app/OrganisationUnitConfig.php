@@ -4,15 +4,21 @@ namespace App;
 
 class OrganisationUnitConfig {
 
-    private $fixedMembershipFee;
+    private $isFixedFee;
 
-    public function __construct(bool $fixedMembershipFee)
+    public function __construct(bool $isFixedFee, $fixedFee)
     {
-        $this->fixedMembershipFee = $fixedMembershipFee;
+        $this->isFixedFee = $isFixedFee;
+        $this->fixedFee = $fixedFee;
     }
 
-    public function isFixedMembershipFee(): bool
+    public function isFixedFee(): bool
     {
-        return $this->fixedMembershipFee;
+        return $this->isFixedFee;
+    }
+
+    public function getFixedFee(): bool
+    {
+        return $this->fixedFee;
     }
 }
