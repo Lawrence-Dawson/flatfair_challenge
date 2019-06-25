@@ -17,5 +17,17 @@ class OrganisationUnitConfigTest extends TestCase {
 
         $this->assertEquals($hasFixedMembershipFee, $config->isFixedMembershipFee());
     }
+
+    /**
+    * @test
+    */
+    public function it_can_return_fixed_membership_fee()
+    {
+        $hasFixedMembershipFee = true;
+        $fixedFee = 25000;
+        $config = new OrganisationUnitConfig($hasFixedMembershipFee, $fixedFee);
+
+        $this->assertEquals($fixedFee, $config->getFixedFee());
+    }
 }
 
