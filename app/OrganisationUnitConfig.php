@@ -5,6 +5,7 @@ namespace App;
 class OrganisationUnitConfig {
 
     private $isFixedFee;
+    private $fixedFee;
 
     public function __construct(bool $isFixedFee, $fixedFee)
     {
