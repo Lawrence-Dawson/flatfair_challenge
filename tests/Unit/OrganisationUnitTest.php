@@ -2,8 +2,10 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Mockery;
+use App\OrganisationUnit;
 use App\OrganisationUnitConfig;
+use PHPUnit\Framework\TestCase;
 
 class OrganisationUnitTest extends TestCase {
     
@@ -12,7 +14,7 @@ class OrganisationUnitTest extends TestCase {
     */
     public function it_can_get_organisation_config()
     {
-        $config = $this->createMock(OrganisationUnitConfig::class);
+        $config = Mockery::mock(OrganisationUnitConfig::class);
 
         $unit = new OrganisationUnit($config);
         
