@@ -38,9 +38,9 @@ class FeeCalculator
            throw new \Exception("Invalid rent amount, it must be above " . $rules['min']);
            
         }
-        
+
         if ($rentAmount > $rules['max']) {
-           throw new \Exception("Invalid rent amount, it must be below " . $rules['min']);
+           throw new \Exception("Invalid rent amount, it must be below " . $rules['max']);
         }
     }
 
