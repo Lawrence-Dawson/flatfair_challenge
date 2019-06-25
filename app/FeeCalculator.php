@@ -16,14 +16,18 @@ class FeeCalculator {
 
     private function calculateWeeksRent(int $rentAmount): int
     {
-        return $rentAmount;
+        if($rentAmount == 'weekly') {
+            return $rentAmount;
+        }
+        
+        return $rentAmount * 12 / 52;
     }
 
     private function addTax(int $weeksRent): int
     {
         $percentage = 20.0;
         $weeksRent += $weeksRent*($percentage/100);
-        
+
         return $weeksRent;
     }
 }
