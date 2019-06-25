@@ -12,7 +12,20 @@ class OrganisationUnitTest extends TestCase {
     /**
     * @test
     */
-    public function it_can_get_organisation_config()
+    public function it_can_get_organisation_unit_name()
+    {
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        $name = 'branch';
+
+        $unit = new OrganisationUnit($name, $config);
+        
+        $this->assertEquals($name, $unit->getName());
+    }
+
+    /**
+    * @test
+    */
+    public function it_can_get_organisation_unit_config()
     {
         $config = Mockery::mock(OrganisationUnitConfig::class);
 
