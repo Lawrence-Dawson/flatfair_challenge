@@ -17,20 +17,14 @@ class FeeCalculatorTest extends TestCase {
     {
         $calculator = new FeeCalculator();
         $organisationUnit = Mockery::mock(OrganisationUnit::class);
-        $config = Mockery::mock(OrganisationUnitConfig::class);
-        
-        $organisationUnit->expects()
-            ->getConfig()
-            ->once()
-            ->andReturns($config);
         
         $period = 'weekly';
         $rentAmount = 3000;
 
-        $fee = $calculator->calculateMembershipFee($amount, $period, $organisationUnit);
-        
+        $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+  
         $percentage = 20.0;
-        $expected = $fee + $fee*($percentage/100);
+        $expected = $rentAmount + $rentAmount*($percentage/100);
 
         $this->assertEquals($expected, $fee);
     }
