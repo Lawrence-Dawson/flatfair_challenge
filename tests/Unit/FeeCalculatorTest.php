@@ -48,5 +48,22 @@ class FeeCalculatorTest extends TestCase {
        
         $this->assertEquals($expected, $fee);
     }
+
+    /**
+    * @test
+    */
+    public function it_will_use_minimun_fee_when_fee_calculated_to_below_minimun()
+    {
+        $minimumFee = 14400;
+        $calculator = new FeeCalculator($minimumFee);
+        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        
+        $period = 'weekly';
+        $rentAmount = 11520;
+
+        $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+        
+        $this->assertEquals($minimumFee, $fee);
+    }
 }
 

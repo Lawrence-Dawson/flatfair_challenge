@@ -4,19 +4,30 @@ namespace App;
 
 use App\OrganisationUnit;
 
-class FeeCalculator {
+class FeeCalculator 
+{
+    private $minFee;
+
+    public function __construct(int $minFee)
+    {
+        $this->minFee = $minFee;
+    }
 
     public function calculateMembershipFee(int $rentAmount, string $period, OrganisationUnit $unit)
     {
-	    $weeksRent = $this->calculateWeeksRent($rentAmount);
-	    $fee = $this->addTax($weeksRent);
-	
-	    return $fee;
+	    $weeksRent = $this->calculateWeeksRent($rentAmount, $period);
+        $fee = $this->addTax($weeksRent);
+
+        if ($fee > $this->minFee) {
+            return $fee;
+        }
+    
+	    return $this->minFee;
     }
 
-    private function calculateWeeksRent(int $rentAmount): int
+    private function calculateWeeksRent(int $rentAmount, string $period): int
     {
-        if($rentAmount == 'weekly') {
+        if($period == 'weekly') {
             return $rentAmount;
         }
         
