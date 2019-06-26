@@ -151,7 +151,7 @@ class MembershipFeeCalculationTest extends TestCase
     /**
     * @test
     */
-    public function it_can_calculate_weekly_period_fee_when_parent_config_has_fixed_fee()
+    public function it_can_return_fixed_fee_when_it_has_no_config_and_parents_config_has_fixed_fee()
     {
         $this->buildOrganisation();
 
