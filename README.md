@@ -42,7 +42,7 @@ Because of tree like structure of 'Organisations', I decided that the "Chain of 
 - I firstly created an OrganisationUnit class and an OrganisationUnitConfig class and tested both with unit tests.
 - I then created a FeeCalculator class that used the OrganisationUnit and OrganisationUnitConfig classes to calculate the fee correctly, this was also fully unit tested.
 - I then created a feature test to make sure that the logic worked with the full organisation structure that was supplied for the test.
-- Then created an interface for both the OrganisationUnit and OrganisationUnitConfig and type hinted those where previously I had type hinted the latter within classes.
+- I then created an interface for both the OrganisationUnit and OrganisationUnitConfig and type hinted those where previously I had type hinted the latter within classes.
 - Finally I made the OrganisationUnit an abstract class and created a class for Area, Branch, Division and Client. This now adds additional extendability to the solution, so that in future any of those classes can override the OrganisationUnits public functions such as 'getConfig' and use custom behavior.
 
 ## To Run Tests
