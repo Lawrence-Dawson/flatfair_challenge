@@ -125,5 +125,24 @@ class MembershipFeeCalculationTest extends TestCase
 
         $this->assertEquals($expected, $fee);
     }
+
+     /**
+    * @test
+    */
+    public function it_can_calculate_monthly_period_fee_when_config_in_parent()
+    {
+        $this->buildOrganisation();
+
+        $calculator = new FeeCalculator();
+        $rentAmount = 52000;
+
+        $fee = $calculator->calculateMembershipFee($rentAmount, $this->monthly, $this->branch_m);
+  
+        $weeklyCost = $rentAmount * 12 / 52;
+        $percentage = 20;
+        $expected = floor($weeklyCost + $weeklyCost*($percentage/100));
+
+        $this->assertEquals($expected, $fee);
+    }
 }
 
