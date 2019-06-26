@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Mockery;
+use App\Area;
 use App\OrganisationUnit;
 use App\OrganisationUnitConfig;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +44,7 @@ class OrganisationUnitTest extends TestCase {
         $config = Mockery::mock(OrganisationUnitConfig::class);
         $name = 'branch';
 
-        $parent = Mockery::mock(OrganisationUnit::class);
+        $parent = Mockery::mock(Area::class);
 
         $unit = $unit = new class($name, $config) extends OrganisationUnit {};
 
@@ -60,7 +61,7 @@ class OrganisationUnitTest extends TestCase {
         $config = Mockery::mock(OrganisationUnitConfig::class);
         $name = 'branch';
 
-        $parent = Mockery::mock(OrganisationUnit::class);
+        $parent = Mockery::mock(Area::class);
 
         $parent->expects()
             ->getConfig()
