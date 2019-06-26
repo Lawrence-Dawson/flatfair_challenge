@@ -3,8 +3,9 @@
 namespace App;
 
 use App\OrganisationUnitConfig;
+use App\Interfaces\OrganisationUnitInterface;
 
-class OrganisationUnit {
+class OrganisationUnit implements OrganisationUnitInterface {
 
     private $config;
     private $name;

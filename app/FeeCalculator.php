@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\OrganisationUnit;
+use App\Interfaces\OrganisationUnitInterface;
 
 class FeeCalculator 
 {
@@ -18,7 +18,7 @@ class FeeCalculator
         ],
     ];
 
-    public function calculateMembershipFee(int $rentAmount, string $period, OrganisationUnit $unit)
+    public function calculateMembershipFee(int $rentAmount, string $period, OrganisationUnitInterface $unit)
     {
         $this->validateRentAmount($rentAmount, $period);
         $unitConfig = $unit->getConfig();
