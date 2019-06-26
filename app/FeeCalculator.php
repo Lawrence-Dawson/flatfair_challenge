@@ -21,6 +21,12 @@ class FeeCalculator
     public function calculateMembershipFee(int $rentAmount, string $period, OrganisationUnit $unit)
     {
         $this->validateRentAmount($rentAmount, $period);
+        $unitConfig = $unit->getConfig();
+
+        if ($unitConfig->isFixedFee()) {
+            return $unitConfig->getFixedFee();
+        }
+        
 	    $weeksRent = $this->calculateWeeksRent($rentAmount, $period);
         $fee = $this->addTax($weeksRent);
 

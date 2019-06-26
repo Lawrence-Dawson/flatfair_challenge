@@ -17,6 +17,16 @@ class FeeCalculatorTest extends TestCase {
     {
         $calculator = new FeeCalculator();
         $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        $organisationUnit->expects()
+            ->getConfig()
+            ->once()
+            ->andReturns($config);
+
+        $config->expects()
+            ->isFixedFee()
+            ->once()
+            ->andReturns(false);
         
         $period = 'weekly';
         $rentAmount = 12000;
@@ -36,6 +46,16 @@ class FeeCalculatorTest extends TestCase {
     {
         $calculator = new FeeCalculator();
         $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        $organisationUnit->expects()
+            ->getConfig()
+            ->once()
+            ->andReturns($config);
+
+        $config->expects()
+            ->isFixedFee()
+            ->once()
+            ->andReturns(false);
         
         $period = 'monthly';
         $rentAmount = 52000;
@@ -57,6 +77,16 @@ class FeeCalculatorTest extends TestCase {
         $minimumFee = 14400;
         $calculator = new FeeCalculator();
         $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        $organisationUnit->expects()
+            ->getConfig()
+            ->once()
+            ->andReturns($config);
+
+        $config->expects()
+            ->isFixedFee()
+            ->once()
+            ->andReturns(false);
         
         $period = 'weekly';
         $rentAmount = 11520;
@@ -128,6 +158,66 @@ class FeeCalculatorTest extends TestCase {
         $this->expectExceptionMessage('Invalid rent amount, it must be below 866000');
 
         $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+    }
+
+    /**
+    * @test
+    */
+    public function it_will_return_default_fee_when_config_has_default_fee_amount()
+    {
+        $calculator = new FeeCalculator();
+        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        $fixedFee = 80000;
+        
+        $organisationUnit->expects()
+            ->getConfig()
+            ->once()
+            ->andReturns($config);
+
+        $config->expects()
+            ->isFixedFee()
+            ->once()
+            ->andReturns(true);
+
+        $config->expects()
+            ->getFixedFee()
+            ->once()
+            ->andReturns($fixedFee);
+        
+        $period = 'monthly';
+        $rentAmount = 12000;
+
+        $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+
+        $this->assertEquals($fixedFee, $fee);
+    }
+
+    /**
+    * @test
+    */
+    public function it_will_not_return_default_fee_when_config_has_no_default_fee_amount()
+    {
+        $calculator = new FeeCalculator();
+        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $config = Mockery::mock(OrganisationUnitConfig::class);
+        
+        $organisationUnit->expects()
+            ->getConfig()
+            ->once()
+            ->andReturns($config);
+
+        $config->expects()
+            ->isFixedFee()
+            ->once()
+            ->andReturns(false);
+        
+        $period = 'monthly';
+        $rentAmount = 12000;
+
+        $fee = $calculator->calculateMembershipFee($rentAmount, $period, $organisationUnit);
+
+        $this->assertEquals(14400, $fee);
     }
 }
 
