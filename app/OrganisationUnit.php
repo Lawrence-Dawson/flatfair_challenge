@@ -21,7 +21,6 @@ class OrganisationUnit {
         if ($config = $this->config) {
             return $config;
 	    }
-
 	    return $this->getParent()->getConfig();
     }
 

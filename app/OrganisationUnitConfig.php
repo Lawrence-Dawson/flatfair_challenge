@@ -18,7 +18,7 @@ class OrganisationUnitConfig {
         return $this->isFixedFee;
     }
 
-    public function getFixedFee(): ?bool
+    public function getFixedFee(): ?int
     {
         return $this->fixedFee;
     }

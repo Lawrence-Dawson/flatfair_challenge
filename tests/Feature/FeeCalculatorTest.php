@@ -47,7 +47,10 @@ class MembershipFeeCalculationTest extends TestCase
     public function buildOrganisation()
     {
         foreach ($this->structureConfig as $key => $value) {
-            $config = new OrganisationUnitConfig($value['config']['has_fixed_membership_fee'], $value['config']['fixed_membership_fee_amount']);
+            $config = null;
+            if (!is_null($value['config'])) {
+                $config = new OrganisationUnitConfig($value['config']['has_fixed_membership_fee'], $value['config']['fixed_membership_fee_amount']);
+            }
             $this->{$value['name']} = new OrganisationUnit($value['name'], $config);
         }
         $this->branch_a->setParent($this->area_a)->setParent($this->division_a)->setParent($this->client);
@@ -108,7 +111,7 @@ class MembershipFeeCalculationTest extends TestCase
         $this->assertEquals($expected, $fee);
     }
 
-     /**
+    /**
     * @test
     */
     public function it_can_calculate_weekly_period_fee_when_config_in_parent()
@@ -126,7 +129,7 @@ class MembershipFeeCalculationTest extends TestCase
         $this->assertEquals($expected, $fee);
     }
 
-     /**
+    /**
     * @test
     */
     public function it_can_calculate_monthly_period_fee_when_config_in_parent()
@@ -143,6 +146,23 @@ class MembershipFeeCalculationTest extends TestCase
         $expected = floor($weeklyCost + $weeklyCost*($percentage/100));
 
         $this->assertEquals($expected, $fee);
+    }
+
+    /**
+    * @test
+    */
+    public function it_can_calculate_weekly_period_fee_when_parent_config_has_fixed_fee()
+    {
+        $this->buildOrganisation();
+
+        $calculator = new FeeCalculator();
+        $rentAmount = 12000;
+
+        $fee = $calculator->calculateMembershipFee($rentAmount, $this->weekly, $this->branch_d);
+        
+        $fixedFee = $this->area_a->getConfig()->getFixedFee();
+        
+        $this->assertEquals($fixedFee, $fee);
     }
 }
 
