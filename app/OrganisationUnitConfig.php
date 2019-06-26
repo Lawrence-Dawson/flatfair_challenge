@@ -2,7 +2,9 @@
 
 namespace App;
 
-class OrganisationUnitConfig {
+use App\Interfaces\OrganisationUnitConfigInterface;
+
+class OrganisationUnitConfig implements OrganisationUnitConfigInterface {
 
     private $isFixedFee;
     private $fixedFee;

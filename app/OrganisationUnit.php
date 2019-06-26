@@ -4,6 +4,7 @@ namespace App;
 
 use App\OrganisationUnitConfig;
 use App\Interfaces\OrganisationUnitInterface;
+use App\Interfaces\OrganisationUnitConfigInterface;
 
 class OrganisationUnit implements OrganisationUnitInterface {
 
@@ -11,7 +12,7 @@ class OrganisationUnit implements OrganisationUnitInterface {
     private $name;
     private $parent;
 
-    public function __construct(string $name, OrganisationUnitConfig $config = null)
+    public function __construct(string $name, OrganisationUnitConfigInterface $config = null)
     {
         $this->config = $config;
         $this->name = $name;
