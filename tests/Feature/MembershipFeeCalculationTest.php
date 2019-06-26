@@ -2,9 +2,11 @@
 
 namespace Tests\Unit;
 
-use Mockery;
+use App\Area;
+use App\Branch;
+use App\Client;
+use App\Division;
 use App\FeeCalculator;
-use App\OrganisationUnit;
 use App\OrganisationUnitConfig;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +53,20 @@ class MembershipFeeCalculationTest extends TestCase
             if (!is_null($value['config'])) {
                 $config = new OrganisationUnitConfig($value['config']['has_fixed_membership_fee'], $value['config']['fixed_membership_fee_amount']);
             }
-            $this->{$value['name']} = new OrganisationUnit($value['name'], $config);
+
+            if (strpos($value['name'], 'branch') !== false) {
+                $this->{$value['name']} = new Branch($value['name'], $config);
+            }
+            if (strpos($value['name'], 'area') !== false) {
+                $this->{$value['name']} = new Area($value['name'], $config);
+            }
+            if (strpos($value['name'], 'division') !== false) {
+                $this->{$value['name']} = new Division($value['name'], $config);
+            }
+            if (strpos($value['name'], 'client') !== false) {
+                $this->{$value['name']} = new Client($value['name'], $config);
+            }
+            
         }
         $this->branch_a->setParent($this->area_a)->setParent($this->division_a)->setParent($this->client);
         $this->branch_b->setParent($this->area_a)->setParent($this->division_a)->setParent($this->client);

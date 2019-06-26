@@ -2,11 +2,10 @@
 
 namespace App;
 
-use App\OrganisationUnitConfig;
 use App\Interfaces\OrganisationUnitInterface;
 use App\Interfaces\OrganisationUnitConfigInterface;
 
-class OrganisationUnit implements OrganisationUnitInterface {
+abstract class OrganisationUnit implements OrganisationUnitInterface {
 
     private $config;
     private $name;
@@ -18,7 +17,7 @@ class OrganisationUnit implements OrganisationUnitInterface {
         $this->name = $name;
     }
 
-    public function getConfig(): ?OrganisationUnitConfig
+    public function getConfig(): ?OrganisationUnitConfigInterface
     {
         if ($config = $this->config) {
             return $config;
@@ -31,14 +30,14 @@ class OrganisationUnit implements OrganisationUnitInterface {
         return $this->name;
     }
 
-    public function setParent(OrganisationUnit $parent): ?OrganisationUnit
+    public function setParent(OrganisationUnitInterface $parent): ?OrganisationUnitInterface
     {
         $this->parent = $parent;
         
         return $parent;
     }
 
-    public function getParent(): ?OrganisationUnit
+    public function getParent(): ?OrganisationUnitInterface
     {
         return $this->parent ?? null;
     }

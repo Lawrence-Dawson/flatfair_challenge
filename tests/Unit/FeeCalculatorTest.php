@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use Mockery;
+use App\Branch;
 use App\FeeCalculator;
-use App\OrganisationUnit;
 use App\OrganisationUnitConfig;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_can_calculate_weekly_period_fee()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         $config = Mockery::mock(OrganisationUnitConfig::class);
         $organisationUnit->expects()
             ->getConfig()
@@ -45,7 +45,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_can_calculate_monthly_period_fee()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         $config = Mockery::mock(OrganisationUnitConfig::class);
         $organisationUnit->expects()
             ->getConfig()
@@ -76,7 +76,7 @@ class FeeCalculatorTest extends TestCase {
     {
         $minimumFee = 14400;
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         $config = Mockery::mock(OrganisationUnitConfig::class);
         $organisationUnit->expects()
             ->getConfig()
@@ -102,7 +102,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_will_throw_exception_when_weekly_rent_amount_too_small()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         
         $period = 'weekly';
         $rentAmount = 2499;
@@ -118,7 +118,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_will_throw_exception_when_monthly_rent_amount_too_small()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         
         $period = 'monthly';
         $rentAmount = 10999;
@@ -134,7 +134,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_will_throw_exception_when_weekly_rent_amount_too_large()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         
         $period = 'weekly';
         $rentAmount = 200001;
@@ -150,7 +150,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_will_throw_exception_when_monthly_rent_amount_too_large()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         
         $period = 'monthly';
         $rentAmount = 866001;
@@ -166,7 +166,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_will_return_default_fee_when_config_has_default_fee_amount()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         $config = Mockery::mock(OrganisationUnitConfig::class);
         $fixedFee = 80000;
         
@@ -199,7 +199,7 @@ class FeeCalculatorTest extends TestCase {
     public function it_will_not_return_default_fee_when_config_has_no_default_fee_amount()
     {
         $calculator = new FeeCalculator();
-        $organisationUnit = Mockery::mock(OrganisationUnit::class);
+        $organisationUnit = Mockery::mock(Branch::class);
         $config = Mockery::mock(OrganisationUnitConfig::class);
         
         $organisationUnit->expects()

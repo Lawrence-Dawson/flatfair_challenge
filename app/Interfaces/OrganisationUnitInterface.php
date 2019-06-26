@@ -2,16 +2,13 @@
 
 namespace App\Interfaces;
 
-use App\OrganisationUnitConfig;
-use App\OrganisationUnit;
-
 interface OrganisationUnitInterface
 {
-    public function getConfig(): ?OrganisationUnitConfig;
+    public function getConfig(): ?OrganisationUnitConfigInterface;
     
-    public function setParent(OrganisationUnit $parent): ?OrganisationUnit;
+    public function setParent(OrganisationUnitInterface $parent): ?OrganisationUnitInterface;
 
-    public function getParent(): ?OrganisationUnit;
+    public function getParent(): ?OrganisationUnitInterface;
 
     public function getName(): String;
 }
