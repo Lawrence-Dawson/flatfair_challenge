@@ -23,8 +23,8 @@ class FeeCalculator
         $this->validateRentAmount($rentAmount, $period);
         $unitConfig = $unit->getConfig();
         
-        if ($fixedFee = $unitConfig->isFixedFee()) {
-            return $fixedFee;
+        if ($unitConfig->isFixedFee()) {
+            return $unitConfig->getFixedFee();
         }
 
 	    $weeksRent = $this->calculateWeeksRent($rentAmount, $period);
